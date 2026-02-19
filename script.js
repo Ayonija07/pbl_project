@@ -1,6 +1,4 @@
-/* ====================================
-   GrowFi - Shared JavaScript Logic
-   ==================================== */
+
 
 // ====================================
 // UTILITY FUNCTIONS
@@ -504,4 +502,5 @@ function debugRecommendation() {
 function initPage() {
     // Protect page if not logged in
     checkLogin();
+
 }
