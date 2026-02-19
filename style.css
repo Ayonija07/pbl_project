@@ -1,8 +1,4 @@
-/* ====================================
-   GrowFi - Professional Styling
-   ==================================== */
 
-/* Reset and Base Styles */
 * {
     margin: 0;
     padding: 0;
@@ -121,9 +117,7 @@ body {
     font-weight: 400;
 }
 
-/* ====================================
-   FORM PROGRESS BAR
-   ==================================== */
+
 
 .form-progress {
     display: flex;
@@ -168,9 +162,7 @@ body {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 
-/* ====================================
-   FORM STEPS
-   ==================================== */
+
 
 .form-step {
     display: none;
@@ -207,9 +199,7 @@ body {
     font-weight: 500;
 }
 
-/* ====================================
-   FORM GROUPS & INPUTS
-   ==================================== */
+
 
 .form-group {
     margin-bottom: 25px;
@@ -591,9 +581,7 @@ body {
     flex: 1;
 }
 
-/* ====================================
-   LOGIN INFO
-   ==================================== */
+
 
 .login-info {
     text-align: center;
@@ -610,9 +598,7 @@ body {
     margin: 0;
 }
 
-/* ====================================
-   DASHBOARD PAGE
-   ==================================== */
+
 
 .dashboard-container {
     max-width: 1200px;
@@ -652,9 +638,7 @@ body {
     font-weight: 800;
 }
 
-/* ====================================
-   PROFILE SECTION (FEATURE 4)
-   ==================================== */
+
 
 .profile-section {
     display: grid;
@@ -750,9 +734,7 @@ body {
     font-size: 0.95rem;
 }
 
-/* ====================================
-   PROGRESS BAR SECTION (FEATURE 1)
-   ==================================== */
+
 
 .progress-section {
     background: white;
@@ -808,9 +790,7 @@ body {
     font-weight: 600;
 }
 
-/* ====================================
-   STATS SECTION
-   ==================================== */
+
 
 .dashboard-stats {
     display: grid;
@@ -877,9 +857,7 @@ body {
     z-index: 1;
 }
 
-/* ====================================
-   MODULE PROGRESS
-   ==================================== */
+
 
 .dashboard-progress {
     background: white;
@@ -945,9 +923,7 @@ body {
     transform: scale(1.3);
 }
 
-/* ====================================
-   AI RECOMMENDATION
-   ==================================== */
+
 
 .dashboard-ai {
     background: linear-gradient(135deg, #f0f4ff 0%, #e0e7ff 100%);
@@ -975,9 +951,7 @@ body {
     font-weight: 500;
 }
 
-/* ====================================
-   MODULE PAGES
-   ==================================== */
+
 
 .module-container {
     max-width: 1200px;
@@ -1208,9 +1182,7 @@ body {
     line-height: 1.7;
 }
 
-/* ====================================
-   SCROLLBAR STYLING
-   ==================================== */
+
 
 ::-webkit-scrollbar {
     width: 10px;
@@ -1230,9 +1202,7 @@ body {
     background: #5568d3;
 }
 
-/* ====================================
-   RESPONSIVE DESIGN
-   ==================================== */
+
 
 @media (max-width: 968px) {
     .module-content {
@@ -1455,4 +1425,5 @@ body {
     .progress-bar {
         height: 10px;
     }
+
 }
