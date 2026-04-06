@@ -10,9 +10,14 @@
     <div class="dashboard-container">
         <header class="dashboard-header">
             <div class="header-left">
+                <p class="dashboard-eyebrow">Your financial cockpit</p>
                 <h1>Welcome, <span id="dashUsername"></span>!</h1>
+                <p class="dashboard-subtitle">Track your growth, keep your streak alive, and move steadily toward stronger money habits.</p>
             </div>
-            <button class="btn btn-secondary" onclick="logoutUser()">Logout</button>
+            <div class="header-actions">
+                <div class="dashboard-status">Learning mode active</div>
+                <button class="btn btn-secondary" onclick="logoutUser()">Logout</button>
+            </div>
         </header>
 
         <!-- Profile Section (FEATURE 4) -->
@@ -41,34 +46,134 @@
             </div>
         </section>
 
-        <!-- Progress Bar Section (FEATURE 1) -->
-        <section class="progress-section">
-            <h2>Overall Progress</h2>
-            <div class="progress-container">
-                <div class="progress-bar">
-                    <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+        <section class="dashboard-overview">
+            <!-- Progress Bar Section (FEATURE 1) -->
+            <section class="progress-section">
+                <p class="section-kicker">Progress pulse</p>
+                <h2>Overall Progress</h2>
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+                    </div>
+                    <p class="progress-text" id="progressText">0% Complete</p>
                 </div>
-                <p class="progress-text" id="progressText">0% Complete</p>
-            </div>
-            <p class="progress-message" id="progressMessage"></p>
+                <p class="progress-message" id="progressMessage"></p>
+            </section>
+
+            <section class="dashboard-ai">
+                <p class="section-kicker">Guided next step</p>
+                <h2>AI Recommendation</h2>
+                <div id="aiRecommendation" class="ai-box"></div>
+            </section>
+        </section>
+
+        <section class="health-section">
+            <article class="health-card">
+                <p class="section-kicker">Standout feature</p>
+                <h2>Financial Health Score</h2>
+                <div class="health-score-row">
+                    <strong id="financialHealthScore">0/100</strong>
+                    <span class="health-chip">Savings + Budget + Consistency</span>
+                </div>
+                <p class="health-copy">A simple score that reflects how balanced and sustainable your money habits look right now.</p>
+            </article>
+
+            <article class="advice-card">
+                <p class="section-kicker">Smart financial advice</p>
+                <h2>Actionable next move</h2>
+                <div id="smartAdviceBox" class="advice-box"></div>
+            </article>
         </section>
 
         <section class="dashboard-stats">
             <div class="stat-card">
-                <label>Points:</label>
+                <div class="stat-head">
+                    <label>Points</label>
+                    <span class="stat-icon">XP</span>
+                </div>
                 <span id="dashPoints">0</span>
+                <p class="stat-note">Earn more by completing modules and making smart decisions.</p>
             </div>
             <div class="stat-card">
-                <label>Badges:</label>
+                <div class="stat-head">
+                    <label>Badges</label>
+                    <span class="stat-icon">BR</span>
+                </div>
                 <span id="dashBadges">None</span>
+                <p class="stat-note">Your milestones show up here as you keep building consistency.</p>
             </div>
             <div class="stat-card">
-                <label>Wallet Balance:</label>
+                <div class="stat-head">
+                    <label>Wallet Balance</label>
+                    <span class="stat-icon">Rs</span>
+                </div>
                 <span id="dashWallet">₹0</span>
             </div>
         </section>
 
+        <section class="fun-zone">
+            <article class="fun-card mission-card">
+                <p class="section-kicker">Daily mission</p>
+                <h2 id="missionTitle">Balance Builder</h2>
+                <p id="missionDescription">Complete one challenge today and keep your momentum going.</p>
+                <div class="fun-meta">
+                    <span class="fun-pill" id="missionReward">+50 XP</span>
+                    <span class="fun-pill fun-pill-soft">1 step at a time</span>
+                </div>
+            </article>
+
+            <article class="fun-card reward-card">
+                <p class="section-kicker">Next unlock</p>
+                <h2 id="levelLabel">Rookie Saver</h2>
+                <p id="milestoneCopy">Keep going to unlock your next milestone reward.</p>
+            </article>
+
+            <article class="fun-card fact-card">
+                <p class="section-kicker">Money fact</p>
+                <h2>Quick brain boost</h2>
+                <p id="financeFact">Small recurring savings usually beat one-time motivation bursts.</p>
+            </article>
+
+            <article class="fun-card arcade-card">
+                <p class="section-kicker">Games arcade</p>
+                <h2>Play while you learn</h2>
+                <p>Jump into quick money games and sharpen your instincts with score-based rounds.</p>
+                <div class="fun-meta">
+                    <a href="games.html" class="btn btn-primary">Open Games</a>
+                </div>
+            </article>
+        </section>
+
+        <section class="badge-showcase">
+            <p class="section-kicker">Achievement shelf</p>
+            <h2>Your badge collection</h2>
+            <div id="badgeShelf" class="badge-shelf"></div>
+        </section>
+
+        <section class="mini-challenges">
+            <p class="section-kicker">Mini challenges</p>
+            <h2>Small wins for this week</h2>
+            <div class="challenge-grid">
+                <article class="challenge-card">
+                    <span class="challenge-tag">Challenge 1</span>
+                    <h3>Save ₹2000 this week</h3>
+                    <p>Set aside a small amount each day and build momentum with a quick win.</p>
+                </article>
+                <article class="challenge-card">
+                    <span class="challenge-tag">Challenge 2</span>
+                    <h3>Reduce expenses by 10%</h3>
+                    <p>Cut one non-essential spend and see how much lighter your budget feels.</p>
+                </article>
+                <article class="challenge-card">
+                    <span class="challenge-tag">Challenge 3</span>
+                    <h3>Track every expense for 3 days</h3>
+                    <p>Awareness usually comes before improvement, so capture every rupee you spend.</p>
+                </article>
+            </div>
+        </section>
+
         <section class="dashboard-progress">
+            <p class="section-kicker">Learning roadmap</p>
             <h2>Module Progress</h2>
             <ul class="progress-list">
                 <li>
@@ -90,9 +195,9 @@
             </ul>
         </section>
 
-        <section class="dashboard-ai">
+        <section class="dashboard-ai dashboard-ai-legacy">
             <h2>🤖 AI Recommendation</h2>
-            <div id="aiRecommendation" class="ai-box"></div>
+            <div class="ai-box"></div>
         </section>
     </div>
 
@@ -115,9 +220,11 @@
             document.getElementById('dashUsername').textContent = user.username;
             document.getElementById('dashUsername2').textContent = user.username;
             document.getElementById('userAvatar').textContent = user.avatar || '💰';
-            document.getElementById('dashPoints').textContent = user.points;
+            animateCounter(document.getElementById('dashPoints'), user.points, '');
             document.getElementById('dashWallet').textContent = '₹' + user.walletBalance;
             document.getElementById('profileKnowledge').textContent = user.knowledgeLevel || 'Basic';
+            document.getElementById('financialHealthScore').textContent = calculateFinancialHealthScore(user) + '/100';
+            document.getElementById('smartAdviceBox').textContent = getSmartFinancialAdvice(user);
 
             // Display profile title based on points (FEATURE 4)
             const profileTitle = getProfileTitle(user.points);
@@ -149,6 +256,7 @@
                 aiText = "🚀 Great progress! Try <strong>Invest Smart</strong> for advanced learning.";
             }
             document.getElementById('aiRecommendation').innerHTML = aiText;
+            populateFunDashboard(user);
         }
 
         function logoutUser() {

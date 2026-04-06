@@ -21,11 +21,26 @@
                     <li>📌 <strong>Future Goals:</strong> Set realistic saving goals (car, education, vacation).</li>
                     <li>📌 <strong>50-30-20 Rule:</strong> Allocate 50% for needs, 30% for wants, 20% for savings.</li>
                 </ul>
+                <div class="quick-check-box">
+                    <p class="section-kicker">Quick check</p>
+                    <h3>What makes a savings goal realistic?</h3>
+                    <div class="quick-check-options">
+                        <button class="quick-option" onclick="answerSavingCheck(false)">Choosing the biggest number possible</button>
+                        <button class="quick-option" onclick="answerSavingCheck(true)">Matching the goal to your actual monthly surplus</button>
+                        <button class="quick-option" onclick="answerSavingCheck(false)">Ignoring your expenses and hoping it works out</button>
+                    </div>
+                    <div id="savingQuickFeedback" class="quick-feedback hidden"></div>
+                </div>
             </div>
 
             <div class="task-box">
                 <h2>Your Task: Set a Saving Goal</h2>
                 <p>Define a realistic saving goal for the next 12 months. A goal is realistic if you can save it from your monthly surplus.</p>
+                <div class="mission-strip">
+                    <span class="mission-badge">Mission</span>
+                    <p>Turn your future goal into a number your current income can actually support.</p>
+                    <span class="mission-reward">Reward: +50 XP</span>
+                </div>
 
                 <div class="form-group">
                     <label for="monthlyIncome2">Monthly Income (₹):</label>
@@ -94,6 +109,15 @@
                 resultMessage.innerHTML = '❌ <strong>Goal Too High!</strong>';
                 savingInfo.textContent = `Your monthly surplus is ₹${monthlySurplus.toFixed(2)}. Maximum annual savings: ₹${maxAnnualSavings.toFixed(2)}. Reduce your goal.`;
             }
+        }
+
+        function answerSavingCheck(isCorrect) {
+            showQuickCheck(
+                'savingQuickFeedback',
+                isCorrect,
+                'Exactly. Strong savings goals are grounded in your monthly surplus, not wishful thinking.',
+                'Try again. A goal becomes realistic when it fits your real monthly income minus expenses.'
+            );
         }
 
         // Prevent access if not logged in

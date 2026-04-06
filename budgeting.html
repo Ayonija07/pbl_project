@@ -21,11 +21,26 @@
                     <li>📌 <strong>Track Income & Expenses:</strong> Know how much money comes in and goes out.</li>
                     <li>📌 <strong>Balanced Budget:</strong> A healthy budget means income should be greater than or equal to expenses.</li>
                 </ul>
+                <div class="quick-check-box">
+                    <p class="section-kicker">Quick check</p>
+                    <h3>Which budget is healthiest?</h3>
+                    <div class="quick-check-options">
+                        <button class="quick-option" onclick="answerBudgetCheck(false)">Income 45k, Expenses 52k</button>
+                        <button class="quick-option" onclick="answerBudgetCheck(true)">Income 60k, Expenses 42k</button>
+                        <button class="quick-option" onclick="answerBudgetCheck(false)">Income 30k, Expenses 30k and no savings plan</button>
+                    </div>
+                    <div id="budgetQuickFeedback" class="quick-feedback hidden"></div>
+                </div>
             </div>
 
             <div class="task-box">
                 <h2>Your Task: Create a Budget</h2>
                 <p>Enter your monthly income and expenses. We'll check if your budget is balanced!</p>
+                <div class="mission-strip">
+                    <span class="mission-badge">Mission</span>
+                    <p>Build a plan with room left over so your future self gets paid too.</p>
+                    <span class="mission-reward">Reward: +50 XP</span>
+                </div>
 
                 <div class="form-group">
                     <label for="monthlyIncome">Monthly Income (₹):</label>
@@ -81,6 +96,15 @@
                 resultMessage.innerHTML = '❌ <strong>Budget Alert!</strong>';
                 balanceInfo.textContent = `Your expenses exceed income by ₹${(expenses - income).toFixed(2)}. Reduce expenses to balance.`;
             }
+        }
+
+        function answerBudgetCheck(isCorrect) {
+            showQuickCheck(
+                'budgetQuickFeedback',
+                isCorrect,
+                'Correct. A healthy budget leaves room for savings after essential spending.',
+                'Not quite. The strongest budget leaves a clear surplus instead of just surviving month to month.'
+            );
         }
 
         // Prevent access if not logged in

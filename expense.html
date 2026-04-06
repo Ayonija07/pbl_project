@@ -21,11 +21,38 @@
                     <li>📌 <strong>Identify Wastage:</strong> Find unnecessary expenses and cut them down.</li>
                     <li>📌 <strong>Stay Within Budget:</strong> Monitor spending to prevent overspending.</li>
                 </ul>
+                <div class="quick-check-box">
+                    <p class="section-kicker">Quick check</p>
+                    <h3>Which habit reduces wasted spending fastest?</h3>
+                    <div class="quick-check-options">
+                        <button class="quick-option" onclick="answerExpenseCheck(true)">Track purchases as soon as they happen</button>
+                        <button class="quick-option" onclick="answerExpenseCheck(false)">Only check money when the wallet is nearly empty</button>
+                        <button class="quick-option" onclick="answerExpenseCheck(false)">Guess where the money went at month end</button>
+                    </div>
+                    <div id="expenseQuickFeedback" class="quick-feedback hidden"></div>
+                </div>
             </div>
 
             <div class="task-box">
                 <h2>Your Task: Add and Track Expenses</h2>
                 <p>Add expenses and watch your wallet balance update. You start with ₹1000. Be careful not to overspend!</p>
+
+                <div class="mission-strip">
+                    <span class="mission-badge">Mission</span>
+                    <p>Log expenses carefully and protect your wallet from dipping below zero.</p>
+                    <span class="mission-reward">Reward: +50 XP</span>
+                </div>
+
+                <div class="expense-scoreboard">
+                    <div class="score-pill">
+                        <strong id="expenseCount">0</strong>
+                        <span>expenses logged</span>
+                    </div>
+                    <div class="score-pill">
+                        <strong id="walletStatus">Safe</strong>
+                        <span>wallet status</span>
+                    </div>
+                </div>
 
                 <div class="wallet-display">
                     <label>Current Wallet:</label>
@@ -70,6 +97,7 @@
             const userStr = localStorage.getItem('currentUser');
             if (userStr) {
                 const user = JSON.parse(userStr);
+                document.getElementById('walletStatus').textContent = user.walletBalance > 250 ? 'Safe' : 'Watch';
                 document.getElementById('walletDisplay').textContent = '₹' + user.walletBalance;
             }
         }
@@ -99,6 +127,7 @@
             if (newBalance < 0) {
                 alertBox.innerHTML = '⚠️ <strong>Warning!</strong> Insufficient balance. This expense will result in overspending.';
                 alertBox.classList.add('alert-danger');
+                document.getElementById('walletStatus').textContent = 'Danger';
                 return;
             } else {
                 alertBox.innerHTML = '✅ Expense added successfully!';
@@ -116,6 +145,7 @@
             // Update wallet balance
             user.walletBalance = newBalance;
             localStorage.setItem('currentUser', JSON.stringify(user));
+            document.getElementById('walletStatus').textContent = newBalance > 250 ? 'Safe' : 'Watch';
             document.getElementById('walletDisplay').textContent = '₹' + newBalance;
 
             // Clear inputs
@@ -132,6 +162,7 @@
             const expensesList = document.getElementById('expensesList');
             if (expenses.length === 0) {
                 expensesList.innerHTML = '<li>No expenses yet</li>';
+                document.getElementById('expenseCount').textContent = '0';
                 return;
             }
 
@@ -141,6 +172,16 @@
                 li.textContent = `${exp.category}: ₹${exp.amount} (${exp.timestamp})`;
                 expensesList.appendChild(li);
             });
+            document.getElementById('expenseCount').textContent = expenses.length;
+        }
+
+        function answerExpenseCheck(isCorrect) {
+            showQuickCheck(
+                'expenseQuickFeedback',
+                isCorrect,
+                'Exactly. Real-time tracking reveals patterns before they become expensive habits.',
+                'Try again. Fast tracking works best because it shows your spending pattern while the decision is still fresh.'
+            );
         }
 
         // Prevent access if not logged in

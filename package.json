@@ -1,0 +1,14 @@
+{
+  "name": "growfi",
+  "version": "1.0.0",
+  "private": true,
+  "description": "GrowFi financial learning app with Marketstack-powered market snapshots.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "check": "node --check server.js && node --check script.js"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

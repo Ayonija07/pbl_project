@@ -22,25 +22,71 @@
                     <li>📌 <strong>Medium Risk:</strong> Mutual Funds, Mixed Portfolio - Balanced approach (~8-12%).</li>
                     <li>📌 <strong>High Risk:</strong> Stocks, Crypto - High potential returns but volatile (~15%+).</li>
                 </ul>
+                <div class="quick-check-box">
+                    <p class="section-kicker">Quick check</p>
+                    <h3>What is the smartest investing habit?</h3>
+                    <div class="quick-check-options">
+                        <button class="quick-option" onclick="answerInvestCheck(true)">Spread risk instead of betting everything on one idea</button>
+                        <button class="quick-option" onclick="answerInvestCheck(false)">Choose the most exciting trend every time</button>
+                        <button class="quick-option" onclick="answerInvestCheck(false)">Ignore your comfort level and chase returns only</button>
+                    </div>
+                    <div id="investQuickFeedback" class="quick-feedback hidden"></div>
+                </div>
             </div>
 
             <div class="task-box">
                 <h2>Your Task: Choose Your Investment Strategy</h2>
                 <p>Select a risk level based on your financial goals and comfort level.</p>
+                <div class="mission-strip">
+                    <span class="mission-badge">Mission</span>
+                    <p>Pick the strategy that fits your temperament, not just the flashiest reward.</p>
+                    <span class="mission-reward">Reward: +50 XP</span>
+                </div>
+
+                <div class="readiness-box">
+                    <p class="section-kicker">Investment readiness checker</p>
+                    <h3>Are you ready to invest?</h3>
+                    <p class="readiness-copy">We will score your savings ratio, emergency fund, spending behavior, and consistency first.</p>
+
+                    <div class="form-group">
+                        <label>Do you have emergency savings?</label>
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="emergencyFund" value="yes">
+                                Yes, I have an emergency fund
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="emergencyFund" value="no">
+                                No, not yet
+                            </label>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-secondary" onclick="checkInvestmentReadiness()">Check Readiness</button>
+
+                    <div id="readinessResult" class="readiness-result hidden">
+                        <div class="readiness-score-row">
+                            <strong id="readinessScore">0%</strong>
+                            <span id="readinessStatus" class="readiness-pill">Not Ready</span>
+                        </div>
+                        <p id="readinessReason"></p>
+                        <ul id="readinessTips" class="readiness-tips"></ul>
+                    </div>
+                </div>
 
                 <div class="form-group">
                     <label>Select Your Risk Level:</label>
                     <div class="radio-group">
                         <label class="radio-label">
-                            <input type="radio" name="riskLevel" value="low">
+                            <input type="radio" name="riskLevel" value="low" onchange="updateRiskSuggestions()">
                             🟢 <strong>Low Risk</strong> - Safety first, steady growth
                         </label>
                         <label class="radio-label">
-                            <input type="radio" name="riskLevel" value="medium">
+                            <input type="radio" name="riskLevel" value="medium" onchange="updateRiskSuggestions()">
                             🟡 <strong>Medium Risk</strong> - Balanced approach, moderate growth
                         </label>
                         <label class="radio-label">
-                            <input type="radio" name="riskLevel" value="high">
+                            <input type="radio" name="riskLevel" value="high" onchange="updateRiskSuggestions()">
                             🔴 <strong>High Risk</strong> - Growth focused, aggressive strategy
                         </label>
                     </div>
@@ -51,6 +97,239 @@
                 <div id="investResult" class="result-box hidden">
                     <p id="investResultMessage"></p>
                     <p id="investInfo"></p>
+                </div>
+            </div>
+            <div class="task-box market-panel">
+                <div class="market-panel-header">
+                    <div>
+                        <p class="section-kicker">Live market lab</p>
+                        <h2>Track real market snapshots</h2>
+                        <p class="market-panel-copy">Use the summary first, then open the deeper tools only when you want more detail.</p>
+                    </div>
+                    <button class="btn btn-secondary" onclick="refreshMarketData()">Refresh Prices</button>
+                </div>
+
+                <section class="market-recommendation-panel market-surface">
+                    <div class="market-chart-header">
+                        <div>
+                            <p class="section-kicker">Smart advisor</p>
+                            <h3>Investment recommendation</h3>
+                        </div>
+                        <span id="recommendationBadge" class="recommendation-badge recommendation-badge-moderate">Moderate</span>
+                    </div>
+                    <div class="recommendation-summary-grid">
+                        <div class="recommendation-stat">
+                            <span>Market Status</span>
+                            <strong id="marketStatusLabel">Waiting for data</strong>
+                        </div>
+                        <div class="recommendation-stat">
+                            <span>Your Financial Health</span>
+                            <strong id="financialHealthLabel">0/100</strong>
+                        </div>
+                        <div class="recommendation-stat">
+                            <span>Risk Tolerance</span>
+                            <strong id="riskToleranceLabel">Not selected</strong>
+                        </div>
+                        <div class="recommendation-stat">
+                            <span>Savings Ratio</span>
+                            <strong id="savingsRatioLabel">0%</strong>
+                        </div>
+                    </div>
+                    <div class="recommendation-copy">
+                        <p id="recommendationMessage">Choose a risk level and load market data to generate a recommendation.</p>
+                        <p id="recommendationTip" class="recommendation-tip">Tip: build savings consistency before taking on more market risk.</p>
+                    </div>
+                    <div class="recommendation-decision-grid">
+                        <div class="decision-card">
+                            <span>Recommended Action</span>
+                            <strong id="recommendedAction">Wait and assess</strong>
+                        </div>
+                        <div class="decision-card">
+                            <span>Focused Symbol</span>
+                            <strong id="focusedSymbolLabel">None selected</strong>
+                        </div>
+                    </div>
+                    <div class="recommendation-why">
+                        <p class="section-kicker">Why this recommendation</p>
+                        <ul id="recommendationWhyList" class="recommendation-why-list">
+                            <li>Your savings and market data will appear here.</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <details class="market-section-toggle market-surface" open>
+                    <summary>
+                        <span>Step 1</span>
+                        <strong>Set up your investing view</strong>
+                    </summary>
+                    <div class="market-toolbar">
+                        <div class="watchlist-form">
+                            <p class="section-kicker">My watchlist</p>
+                            <h3>Choose what you want to follow</h3>
+                            <label for="watchlistSymbols">Watchlist symbols</label>
+                            <div class="watchlist-input-row">
+                                <input id="watchlistSymbols" class="watchlist-input" type="text" placeholder="AAPL, MSFT, NVDA">
+                                <button class="btn btn-primary" onclick="saveWatchlist()">Save Watchlist</button>
+                            </div>
+                            <p class="watchlist-hint">Use comma-separated ticker symbols. Example: AAPL, MSFT, GOOGL.</p>
+                        </div>
+
+                        <div class="risk-match-panel">
+                            <div class="market-panel-header market-panel-header-compact">
+                                <div>
+                                    <p class="section-kicker">Risk fit guide</p>
+                                    <h3>Match ideas to your comfort level</h3>
+                                </div>
+                                <button class="btn btn-secondary" onclick="updateRiskSuggestions()">Refresh Guidance</button>
+                            </div>
+                            <div id="riskSuggestion" class="risk-suggestion-card">
+                                Select a low, medium, or high risk strategy above to unlock tailored watchlist guidance.
+                            </div>
+                        </div>
+
+                        <div class="symbol-search-box">
+                            <div class="market-panel-header market-panel-header-compact">
+                                <div>
+                                    <p class="section-kicker">Quick symbol finder</p>
+                                    <h3>Add starter stocks faster</h3>
+                                </div>
+                            </div>
+                            <div class="watchlist-input-row">
+                                <input id="symbolSearchInput" class="watchlist-input" type="text" placeholder="Search by symbol or company name" oninput="filterSymbolSuggestions()">
+                                <button class="btn btn-secondary" onclick="clearSymbolSearch()">Clear</button>
+                            </div>
+                            <div id="symbolSuggestions" class="symbol-suggestions"></div>
+                        </div>
+                    </div>
+                </details>
+
+                <details class="market-section-toggle market-surface" open>
+                    <summary>
+                        <span>Step 2</span>
+                        <strong>Review current market signals</strong>
+                    </summary>
+                    <section class="market-live-board">
+                        <div class="market-live-board-header">
+                            <div>
+                                <p class="section-kicker">Live board</p>
+                                <h3>Daily snapshots</h3>
+                            </div>
+                            <div id="marketStatus" class="market-status">Loading your watchlist...</div>
+                        </div>
+                        <div id="marketGrid" class="market-grid"></div>
+                    </section>
+                </details>
+
+                <details class="market-section-toggle market-surface">
+                    <summary>
+                        <span>Step 3</span>
+                        <strong>Open deeper analysis only when you need it</strong>
+                    </summary>
+                    <div class="market-analysis-grid">
+                        <div class="market-chart-panel">
+                            <div class="market-chart-header">
+                                <div>
+                                    <p class="section-kicker">Trend view</p>
+                                    <h3 id="chartTitle">7-day closing trend</h3>
+                                </div>
+                                <p id="chartInsight" class="market-panel-copy">Pick a stock card to see how its recent closing prices moved.</p>
+                            </div>
+                            <div id="marketChart" class="market-chart-empty">Select a stock to load its recent market trend.</div>
+                        </div>
+
+                        <div class="market-chart-panel compare-panel">
+                            <div class="market-chart-header">
+                                <div>
+                                    <p class="section-kicker">Compare mode</p>
+                                    <h3>See two symbols side by side</h3>
+                                </div>
+                                <p class="market-panel-copy">Compare recent closing prices to understand how differently two ideas can move over the same week.</p>
+                            </div>
+                            <div class="compare-controls">
+                                <div class="compare-field">
+                                    <label for="comparePrimarySymbol">Primary symbol</label>
+                                    <select id="comparePrimarySymbol" class="watchlist-input"></select>
+                                </div>
+                                <div class="compare-field">
+                                    <label for="compareSecondarySymbol">Secondary symbol</label>
+                                    <select id="compareSecondarySymbol" class="watchlist-input"></select>
+                                </div>
+                                <button class="btn btn-primary" onclick="loadComparisonChart()">Compare Trends</button>
+                            </div>
+                            <div id="compareSummary" class="market-status">Choose two symbols from your watchlist to compare their recent pace.</div>
+                            <div id="comparisonChart" class="market-chart-empty">Your comparison chart will appear here.</div>
+                        </div>
+                    </div>
+                </details>
+            </div>
+        </section>
+
+                <section class="market-recommendation-panel market-surface">
+                    <div class="market-chart-header">
+                        <div>
+                            <p class="section-kicker">Smart advisor</p>
+                            <h3>Investment recommendation</h3>
+                        </div>
+                        <span id="recommendationBadge" class="recommendation-badge recommendation-badge-moderate">Moderate</span>
+                    </div>
+                    <div class="recommendation-summary-grid">
+                        <div class="recommendation-stat">
+                            <span>Market Status</span>
+                            <strong id="marketStatusLabel">Waiting for data</strong>
+                        </div>
+                        <div class="recommendation-stat">
+                            <span>Your Financial Health</span>
+                            <strong id="financialHealthLabel">0/100</strong>
+                        </div>
+                        <div class="recommendation-stat">
+                            <span>Risk Tolerance</span>
+                            <strong id="riskToleranceLabel">Not selected</strong>
+                        </div>
+                        <div class="recommendation-stat">
+                            <span>Savings Ratio</span>
+                            <strong id="savingsRatioLabel">0%</strong>
+                        </div>
+                    </div>
+                    <div class="recommendation-copy">
+                        <p id="recommendationMessage">Choose a risk level and load market data to generate a recommendation.</p>
+                        <p id="recommendationTip" class="recommendation-tip">Tip: build savings consistency before taking on more market risk.</p>
+                    </div>
+                </section>
+
+                <div class="market-analysis-grid">
+                    <div class="market-chart-panel market-surface">
+                        <div class="market-chart-header">
+                            <div>
+                                <p class="section-kicker">Trend view</p>
+                                <h3 id="chartTitle">7-day closing trend</h3>
+                            </div>
+                            <p id="chartInsight" class="market-panel-copy">Pick a stock card to see how its recent closing prices moved.</p>
+                        </div>
+                        <div id="marketChart" class="market-chart-empty">Select a stock to load its recent market trend.</div>
+                    </div>
+
+                    <div class="market-chart-panel compare-panel market-surface">
+                        <div class="market-chart-header">
+                            <div>
+                                <p class="section-kicker">Compare mode</p>
+                                <h3>See two symbols side by side</h3>
+                            </div>
+                            <p class="market-panel-copy">Compare recent closing prices to understand how differently two ideas can move over the same week.</p>
+                        </div>
+                        <div class="compare-controls">
+                            <div class="compare-field">
+                                <label for="comparePrimarySymbol">Primary symbol</label>
+                                <select id="comparePrimarySymbol" class="watchlist-input"></select>
+                            </div>
+                            <div class="compare-field">
+                                <label for="compareSecondarySymbol">Secondary symbol</label>
+                                <select id="compareSecondarySymbol" class="watchlist-input"></select>
+                            </div>
+                            <button class="btn btn-primary" onclick="loadComparisonChart()">Compare Trends</button>
+                        </div>
+                        <div id="compareSummary" class="market-status">Choose two symbols from your watchlist to compare their recent pace.</div>
+                        <div id="comparisonChart" class="market-chart-empty">Your comparison chart will appear here.</div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -91,6 +370,98 @@
             awardBadge('invest', 'Investment Explorer', 50);
         }
 
+        function checkInvestmentReadiness() {
+            const emergencyFund = document.querySelector('input[name="emergencyFund"]:checked');
+            const resultDiv = document.getElementById('readinessResult');
+            const scoreEl = document.getElementById('readinessScore');
+            const statusEl = document.getElementById('readinessStatus');
+            const reasonEl = document.getElementById('readinessReason');
+            const tipsEl = document.getElementById('readinessTips');
+            const user = getCurrentUser();
+
+            if (!emergencyFund || !user) {
+                alert('Please answer the emergency savings question first.');
+                return;
+            }
+
+            const monthlyIncome = Number(user.monthlyIncome) || 0;
+            const monthlyExpenses = Number(user.monthlyExpenses) || 0;
+            const streak = Number(user.currentStreak) || 1;
+            const savingsRatio = monthlyIncome > 0 ? ((monthlyIncome - monthlyExpenses) / monthlyIncome) * 100 : 0;
+            const hasEmergencyFund = emergencyFund.value === 'yes';
+            const spendingGood = monthlyIncome > 0 ? monthlyExpenses <= monthlyIncome : Number(user.walletBalance) > 0;
+
+            let score = 0;
+            const reasons = [];
+            const tips = [];
+
+            if (savingsRatio >= 20) {
+                score += 30;
+            } else {
+                reasons.push('low savings ratio');
+                tips.push('Maintain at least 20% savings before investing.');
+            }
+
+            if (hasEmergencyFund) {
+                score += 30;
+            } else {
+                reasons.push('no emergency fund');
+                tips.push('Build emergency fund before investing.');
+            }
+
+            if (spendingGood) {
+                score += 20;
+            } else {
+                reasons.push('overspending behavior');
+                tips.push('Avoid overspending and bring expenses below income.');
+            }
+
+            if (streak >= 3) {
+                score += 20;
+            } else {
+                tips.push('Stay consistent for at least 3 days to build stronger money discipline.');
+            }
+
+            let status = 'Not Ready';
+            let statusClass = 'readiness-bad';
+
+            if (score >= 80) {
+                status = 'Ready to Invest';
+                statusClass = 'readiness-good';
+            } else if (score >= 50) {
+                status = 'Moderate Readiness';
+                statusClass = 'readiness-medium';
+            }
+
+            resultDiv.classList.remove('hidden');
+            scoreEl.textContent = `${score}%`;
+            statusEl.textContent = status;
+            statusEl.className = `readiness-pill ${statusClass}`;
+            reasonEl.textContent = reasons.length === 0
+                ? 'You have a solid base for investing.'
+                : `Reason: ${reasons.join(' + ')}`;
+
+            tipsEl.innerHTML = '';
+            if (tips.length === 0) {
+                tips.push('Keep your emergency fund healthy, maintain your savings rate, and avoid overspending.');
+            }
+
+            tips.forEach((tip) => {
+                const li = document.createElement('li');
+                li.textContent = tip;
+                tipsEl.appendChild(li);
+            });
+        }
+
+        function answerInvestCheck(isCorrect) {
+            showQuickCheck(
+                'investQuickFeedback',
+                isCorrect,
+                'Correct. Diversification and self-awareness usually beat hype-driven decisions.',
+                'Not quite. Smart investing starts with diversification and a risk level you can actually tolerate.'
+            );
+        }
+
         // Prevent access if not logged in
         function checkAccess() {
             const userStr = localStorage.getItem('currentUser');
@@ -100,6 +471,9 @@
         }
 
         checkAccess();
+        loadInvestmentMarketPanel();
     </script>
 </body>
 </html>
+
+
