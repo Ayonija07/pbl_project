@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>GrowFi - Financial Learning</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #0f172a, #1e293b);
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      text-align: center;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 40px;
+      border-radius: 15px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 30px rgba(0,0,0,0.5);
+    }
+
+    h1 {
+      margin-bottom: 10px;
+      font-size: 32px;
+      color: #38bdf8;
+    }
+
+    p {
+      margin-bottom: 30px;
+      color: #cbd5f5;
+    }
+
+    input {
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+      outline: none;
+      margin-right: 10px;
+      width: 200px;
+    }
+
+    button {
+      padding: 10px 20px;
+      border-radius: 8px;
+      border: none;
+      background: #22c55e;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #16a34a;
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <h1>💰 GrowFi</h1>
+    <p>Master Your Financial Future</p>
+
+    <input type="text" id="username" placeholder="Enter your name">
+    <button onclick="login()">Start</button>
+  </div>
+
+  <script>
+    function login() {
+      const name = document.getElementById("username").value;
+
+      if (!name) {
+        alert("Please enter your name");
+        return;
+      }
+
+      const user = {
+        name: name,
+        points: 0,
+        badges: [],
+        completedModules: {}
+      };
+
+      localStorage.setItem("currentUser", JSON.stringify(user));
+      window.location.href = "dashboard.html";
+    }
+  </script>
+
+</body>
+</html>
